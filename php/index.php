@@ -1,3 +1,14 @@
+<?php 
+
+  // check if cookie is set (when them form is sent)
+  if( isset($_COOKIE['theme-switcher-cookie-key'])){
+    $theme = $_COOKIE['theme-switcher-cookie-key'];
+
+  } else {
+    $theme = '';
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,7 +17,8 @@
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
+<!-- theme class dynamic -->
+<body class="<?= $theme ?>">
   <div id="app">
     <header id="header">
       <h1 id="app-title"><a href="#">Login</a></h1>
@@ -19,6 +31,19 @@
       </nav>
     </header>
     <div id="login">
+
+      <!-- THEME SWITCHER -->
+      <form action="themeSwitcher.php" method="GET" id="theme-switcher-form">
+      <!-- values passed to select theme-switcher -->
+        <select name="theme-switcher" id="theme-switcher">
+          <option value="">Thème clair</option>
+          <option value="dark">Thème sombre</option>
+        </select>
+
+        <input type="submit" value="envoyer"/> 
+
+      </form>
+      <!-- Login form -->
       <form action="" id="login-form" method="post" autocomplete="off">
         <div id="form-title">
           Connexion
