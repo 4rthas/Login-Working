@@ -30,7 +30,7 @@ var app = {
 
     //console.log(waveEvent);
 
-    let field = waveEvent.target; 
+    let field = waveEvent.target;
     app.checkField(field);
   },
 
@@ -72,28 +72,26 @@ var app = {
     // clean string
     let inputValue = myField.value.trim();
 
+    // condition length >= 3 for valid
     if(inputValue.length < 3){
 
+      // in this case delete valid class
       myField.classList.remove('valid');
       myField.classList.add('invalid');
 
+      // return value to check if form is sent (false then no form sent)
       return false;
 
     } else {
 
-
+      // the reverse for this case
       myField.classList.remove('invalid');
       myField.classList.add('valid');
 
-      
-
       return true;
-
     }
-
   }
 };
 
-
-
+// to have time all DOM loaded
 document.addEventListener('DOMContentLoaded', app.init);
