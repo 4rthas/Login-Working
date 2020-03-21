@@ -3,7 +3,8 @@ var app = {
   // select all elements with .field-input class and store them in fields (array)
   fields: document.querySelectorAll('.field-input'),
 
-  // select form by its id
+  // select DOM elements by their id
+  errorsArea = document.getElementById('errors');
   loginForm: document.getElementById('login-form'),
 
   init: function() {
