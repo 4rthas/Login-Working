@@ -4,7 +4,7 @@ var app = {
   fields: document.querySelectorAll('.field-input'),
 
   // select DOM elements by their id
-  errorsArea = document.getElementById('errors');
+  errorsArea = document.getElementById('errors'),
   loginForm: document.getElementById('login-form'),
 
   init: function() {
