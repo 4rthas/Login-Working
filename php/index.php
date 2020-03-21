@@ -14,6 +14,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700,700i" rel="stylesheet">
+
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/style.css">
 </head>
