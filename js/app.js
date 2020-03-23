@@ -11,12 +11,12 @@ var app = {
     // console.log('app.init');
 
     // loop on fields array
-    for(let i = 0; i < app.fields.length; i++){
+    for(var fieldIndex = 0; i < app.fields.length; fieldIndex++){
 
       // console.log(app.fields[i]);
 
       // store current field
-      let currentField = app.fields[i];
+      var currentField = app.fields[i];
 
       // add listener on blur (lose focus) for currentFieldement sur blur and add function (isInputValid)
       currentField.addEventListener('blur', app.isInputValid);
@@ -26,72 +26,58 @@ var app = {
     app.loginForm.addEventListener('submit', app.isFormValid);
   },
 
+  errors: [],
+
   // waveEvent or evt or e
-  isInputValid: function (waveEvent){
+  isInputValid: function (evt){
 
     //console.log(waveEvent);
 
-    let field = waveEvent.target;
+    var field = evt.target;
     app.checkField(field);
   },
 
-  isFormValid: function(event)  {
-
-    // stop browser to send form
-    event.preventDefault();
-
-    let isOneError = false;
-
-    // loop on fields array
-    for(let i = 0; i < app.fields.length; i++){
-
-      // store current field
-      let currentField = app.fields[i];
-
-      // check one by one fields when form is sent and store result
-      let result = app.checkField(currentField);
-
-      // if no error but result is false then pass error to true
-      if(isOneError === false && result === false){
-        // at least one error
-        isOneError = true;
-      }
-    }
-
-    // check if no error
-    if(isOneError === false){
-
-      let form = event.target;
-
-      // submit is special function for form
-      form.submit();
+  isFormValid: function (evt) {
+    app.clearErrors();
+    if (app.hasErrors()) {
+      evt.preventDefault();
+      app.showErrors();
     }
   },
 
-  checkField: function (myField){
+  hasErrors: function () {
+    var usernameField = document.getElementById('field-username');
+    var passwordField = document.getElementById('field-password');
 
-    // clean string
-    let inputValue = myField.value.trim();
+    var usernameValid = app.checkField(usernameField);
+    var passwordValid = app.checkField(passwordField);
 
-    // condition length >= 3 for valid
-    if(inputValue.length < 3){
+    return !usernameValid || !passwordValid;
+  },
 
-      // in this case delete valid class
-      myField.classList.remove('valid');
-      myField.classList.add('invalid');
+  checkField: function(field) {
+    field.className = 'field-input';
 
-      // return value to check if form is sent (false then no form sent)
+    if (field.value.length < 3) {
+      app.errors.push(field.placeholder + ' doit contenir au moins 3 caractères');
+      field.classList.add('invalid');
       return false;
-
-    } else {
-
-      // the reverse for this case
-      myField.classList.remove('invalid');
-      myField.classList.add('valid');
-
-      return true;
     }
-  }
+
+    field.classList.add('valid');
+    return true;
+  },
+
+  clearErrors: function() {
+    app.errors = [];
+    app.errorsArea.innerHTML = '';
+  },
+
+  showErrors: function() {
+    for (var errorIndex = 0; errorIndex < app.errors.length; errorIndex++) {
+      app.errorsArea.innerHTML += '<p class="error">' + app.errors[errorIndex] + '</p>';
+    }
+  },
 };
 
 // to have time all DOM loaded
